@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CA1A1A">
+    <!--android:descendantFocusability="blocksDescendants"-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/naslovPosla"
+        android:textStyle="bold"
+        android:lines="1"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"
+        android:text="Naslov"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/naslovPosla"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/rokPrijave"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="10dp"
+        android:lines="1"
+        android:id="@+id/poslodavac"
+        android:fontFamily="Arial"
+        android:typeface="serif"
+        android:textSize="13sp"
+        android:textColor="#FFFFFF"
+        android:text="poslodavac" />
+
+    <TextView
+        android:id="@+id/rokPrijave"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/naslovPosla"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toLeftOf="@+id/ocjenaLabel"
+        android:paddingLeft="10dp"
+        android:text="rok prijave"
+        android:fontFamily="Arial"
+        android:lines="1"
+        android:typeface="serif"
+        android:textSize="13sp"
+        android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:id="@+id/ocjenaLabel"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/naslovPosla"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="10dp"
+        android:text="Ocjena:"
+        android:fontFamily="Arial"
+        android:layout_alignParentRight="true"
+        android:lines="1"
+        android:typeface="serif"
+        android:textSize="13sp"
+        android:textColor="#FFFFFF"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/ocjenaValue"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/naslovPosla"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:paddingLeft="1dp"-->
+        <!--android:text="ocjena"-->
+        <!--android:fontFamily="Arial"-->
+        <!--android:lines="1"-->
+        <!--android:typeface="serif"-->
+        <!--android:textSize="10sp"-->
+        <!--android:textColor="#FFFFFF"-->
+        <!--android:layout_alignParentRight="true"/>-->
+
+</RelativeLayout><!-- From: file:/ZavrsniRadProjects/jobClient/app/src/main/res/layout/tv_job_in_list.xml -->

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Pretraga poslova</string>
+    <string name="action_settings">Settings</string>
+    <!--<string name="jobServiceUrl">http://188.226.168.74:8080/webapp/</string> &lt;!&ndash; digitalOcean &ndash;&gt;-->
+     <string name="jobServiceUrl">http://192.168.1.1:8080/webService/</string> <!-- localhost -->
+    <string name="title_activity_job">Posao</string>
+    <string name="title_activity_search">Pretraži poslove</string>
+    <string name="title_activity_job_list">Poslovi</string>
+
+    <string-array name="job_type_array">
+        <item>Izaberi tip posla</item>
+        <item>Stalni radni odnos</item>
+        <item>Na određeno vrijeme</item>
+        <item>Honorarno</item>
+        <item>Studentski ugovor</item>
+        <item>Praksa</item>
+        <item>Volontiranje</item>
+        <item>Sezonski</item>
+        <item>Stručno osposobljavanje</item>
+    </string-array>
+    <string-array name="qualification_array">
+        <item>Izaberi stručnu spremu</item>
+        <item>NKV</item>
+        <item>PKV</item>
+        <item>KV</item>
+        <item>VKV</item>
+        <item>Srednja stručna sprema</item>
+        <item>Viša stručna sprema</item>
+        <item>Stručni prvostupnik</item>
+        <item>Sveučilišni prvostupnik</item>
+        <item>Visoka stručna sprema</item>
+        <item>MBA</item>
+        <item>Magisterij</item>
+        <item>Magistar struke</item>
+        <item>Doktorat</item>
+    </string-array>
+    <string-array name="category_array">
+        <item>Izaberi kategoriju posla</item>
+        <item>Administrativna zanimanja</item>
+        <item>Arhitektura</item>
+        <item>Bankarstvo</item>
+        <item>Briga o ljepoti, sport</item>
+        <item>Dizajn i umjetnost</item>
+        <item>Elektrotehnika</item>
+        <item>Farmaceutika i biotehnologija</item>
+        <item>Ekonomija, financije i računovodstvo</item>
+        <item>Graditeljstvo, geodezija, geologija</item>
+        <item>Instalacije, održavanje i popravci</item>
+        <item>IT, telekomunikacije</item>
+        <item>Ljudski resursi</item>
+        <item>Marketing, PR i mediji</item>
+        <item>Obrazovanje i znanost</item>
+        <item>Ostalo</item>
+        <item>Poljoprivreda, šumarstvo, ribarstvo</item>
+        <item>Pravo</item>
+        <item>Prodaja (Trgovina)</item>
+        <item>Proizvodnja i zanatske usluge</item>
+        <item>Promet, transport, pomorstvo</item>
+        <item>Sigurnost i zaštita</item>
+        <item>Skladištenje i logistika</item>
+        <item>Skrb (o djeci, starijima...)</item>
+        <item>Strojarstvo i brodogradnja</item>
+        <item>Turizam i ugostiteljstvo</item>
+        <item>Zdravstvo, socijalni rad</item>
+        <item>Management</item>
+        <item>Državna služba i neprofitne organizacije</item>
+    </string-array>
+    <string-array name="county_array">
+        <item>Izaberi županiju</item>
+        <item>Zagreb i zagrebačka</item>
+        <item>Krapinsko-zagorska</item>
+        <item>Sisačko-moslavačka</item>
+        <item>Karlovačka</item>
+        <item>Varaždinska</item>
+        <item>Koprivničko-križevačka</item>
+        <item>Bjelovarsko-bilogorska</item>
+        <item>Primorsko-goranska</item>
+        <item>Ličko-senjska</item>
+        <item>Virovitičko-podravska</item>
+        <item>Požeško-slavonska</item>
+        <item>Brodsko-posavska</item>
+        <item>Zadarska</item>
+        <item>Osječko-baranjska</item>
+        <item>Šibensko-kninska</item>
+        <item>Vukovarsko-srijemska</item>
+        <item>Splitsko-dalmatinska</item>
+        <item>Istarska</item>
+        <item>Dubrovačko-neretvanska</item>
+        <item>Međimurska</item>
+        <item>Inozemstvo</item>
+    </string-array>
+
+    <!-- stringovi za ocjenjivanje -->
+    <string-array name="opseznost_array">
+        <item>Izaberi ocjenu</item>
+        <item>1 - Vrlo neopsežan</item>
+        <item>2 - Neopsežan</item>
+        <item>3 - Srednje opsežan</item>
+        <item>4 - Opsežan</item>
+        <item>5 - Vrlo opsežan</item>
+    </string-array>
+    <string-array name="razumljivost_array">
+        <item>Izaberi ocjenu</item>
+        <item>1 - Vrlo nerazumljiv</item>
+        <item>2 - Nerazumljiv</item>
+        <item>3 - Srednje razumljiv</item>
+        <item>4 - Razumljiv</item>
+        <item>5 - Vrlo razumljiv</item>
+    </string-array>
+    <string-array name="radNaRadnom_array">
+        <item>Izaberi ocjenu</item>
+        <item>1 - Nema šanse</item>
+        <item>2 - Ne bih</item>
+        <item>3 - Možda</item>
+        <item>4 - Bih</item>
+        <item>5 - Vrlo rado</item>
+    </string-array>
+
+    <!-- kriteriji za dijagrame -->
+    <string-array name="tipovi_array">
+        <item>Izaberi kriterij</item>
+        <item>Kategorija posla</item>
+        <item>Zupanija rada</item>
+        <item>Tip posla</item>
+        <item>Kvalifikacija</item>
+        <item>Tehnologija</item>
+    </string-array>
+    <string-array name="tehnologije_array">
+        <item>Izaberi tehnologiju</item>
+        <item>C#</item>
+        <item>ASP</item>
+        <item>.NET</item>
+        <item>MVC</item>
+        <item>SQL</item>
+        <item>HTML</item>
+        <item>CSS</item>
+        <item>LAMP</item>
+        <item>PHP</item>
+        <item>Java</item>
+        <item>Linux</item>
+        <item>J2EE</item>
+        <item>UNIX</item>
+        <item>Spring</item>
+        <item>Android</item>
+        <item>iOS</item>
+        <item>Windows</item>
+        <item>Javascript</item>
+        <item>XML</item>
+        <item>SOAP</item>
+        <item>REST</item>
+        <item>JSON</item>
+        <item>SVN</item>
+        <item>GIT</item>
+        <item>UML</item>
+        <item>AJAX</item>
+        <item>Tomcat</item>
+        <item>Python</item>
+        <item>Django</item>
+        <item>Angular</item>
+        <item>Eclipse</item>
+        <item>Ember</item>
+        <item>WPF</item>
+    </string-array>
+
+    <string name="title_activity_job_preview">JobPreviewActivity</string>
+    <string name="title_activity_location">Lokacija poslodavca</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_skill_trend">SkillTrendActivity</string>
+    <string name="title_activity_data_percentages">Parametri</string>
+    <string name="title_activity_monthly_skill">Parametri</string>
+    <string name="title_activity_data_percentages_diagram">Dijagram kriterija za pretraživanje</string>
+    <string name="title_activity_monthly_skill_diagram">Dijagram traženosti tehnlogija</string>
+
+</resources>

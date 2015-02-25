@@ -1,0 +1,13 @@
+/ZavrsniRadProjects/jobClient/app/build/intermediates/classes/debug
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-3d502b0878cf896ba42b0d28ec1c52f9e0385e4a.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/jackson-annotations-2.3.0-fe89e0be86c5d36d808d5f4dbde3e3557e9dc42e.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/spring-android-core-1.0.1.RELEASE-79d4634376d2d9803ca92c6b018a588963a7906d.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/achartengine-1.2.0-64125c689b1dec874ee26ebcf5a49254ef374457.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/spring-android-rest-template-1.0.1.RELEASE-23a8e07ca9fb571f6f861c7e3cfc361276cc262e.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-30e7eedf50efeab676cfaf0d7b78b0441196820f.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/jackson-core-2.3.2-27811ac0a5ebb5316e891a75213ac639b3dbc02d.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/commons-collections-3.2-4d26ce1bed4c16828472667814d5833905c360f7.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/classes-54dfc66e5559b6dfe455999448cf27b6a8a12305.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/classes-8e668b78c64c40bfc11a872380e3dd84ce4e480f.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/jackson-databind-2.3.2-e1601cca307fd6c5ca2449a68f4d52707283512e.jar
+/ZavrsniRadProjects/jobClient/app/build/intermediates/pre-dexed/debug/classes-a74f66785e404e6ee8bf2c68c74810b9fa04b5d4.jar
