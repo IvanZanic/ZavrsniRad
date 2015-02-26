@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -105,17 +106,19 @@ public class SearchActivity extends ActionBarActivity {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position != 0) {
-                    if (CategoryEnum.getName(position).equals("IT, telekomunikacije")) {
-                        skillSpinner.setEnabled(true);
-                    } else {
-                        skillSpinner.setEnabled(false);
-                        skillSpinner.setSelection(0);
-                    }
+                String a = CategoryEnum.getName((int)id);
+                Log.d("myTag", a);
+                if (a.equals("IT, telekomunikacije")) {
+                    skillSpinner.setEnabled(true);
+                } else {
+                    skillSpinner.setEnabled(false);
+                    skillSpinner.setSelection(0);
                 }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                skillSpinner.setEnabled(false);
+                skillSpinner.setSelection(0);
             }
         });
     }
