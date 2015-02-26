@@ -3,8 +3,8 @@ RemoteSystemsTempFiles
 Servers
 
 /jobClient/.gradle
-/jobClient//local.properties
-/jobClient//.idea/workspace.xml
-/jobClient//.idea/libraries
+/jobClient/local.properties
+/jobClient/.idea/workspace.xml
+/jobClient/.idea/libraries
 /jobClient/.DS_Store
-/jobClient//build
+/jobClient/build
