@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import enums.CategoryEnum;
 import enums.CountyEnum;
@@ -106,19 +107,24 @@ public class SearchActivity extends ActionBarActivity {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String a = CategoryEnum.getName((int)id);
-                Log.d("myTag", a);
-                if (a.equals("IT, telekomunikacije")) {
-                    skillSpinner.setEnabled(true);
+                if (position != 0) {
+                    if (CategoryEnum.getName(position).equals("IT, telekomunikacije")) {
+//                        Toast.makeText(parent.getContext(), CategoryEnum.getName(position), Toast.LENGTH_SHORT).show();
+                        skillSpinner.setEnabled(true);
+                    } else {
+//                        Toast.makeText(parent.getContext(), "else", Toast.LENGTH_SHORT).show();
+                        skillSpinner.setEnabled(false);
+                        skillSpinner.setSelection(0);
+                    }
                 } else {
+//                    Toast.makeText(parent.getContext(), "position = 0", Toast.LENGTH_SHORT).show();
                     skillSpinner.setEnabled(false);
                     skillSpinner.setSelection(0);
                 }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                skillSpinner.setEnabled(false);
-                skillSpinner.setSelection(0);
+//                Toast.makeText(parent.getContext(), "nothing selected", Toast.LENGTH_SHORT).show();
             }
         });
     }
