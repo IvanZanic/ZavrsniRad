@@ -7,7 +7,6 @@ Servers
 
 # Built application files
 /jobClient/*/build/
-/jobClient/build/
  
 # Crashlytics configuations
 /jobClient/com_crashlytics_export_strings.xml
