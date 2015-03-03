@@ -142,10 +142,10 @@ public class MonthlySkillDiagramActivity extends ActionBarActivity {
                 mRenderer.setYAxisMax(maxSkillNum.getCounter() + 5);
                 mRenderer.setYAxisMin(0);
                 mRenderer.setShowGrid(true); // we show the grid
-                mRenderer.setLabelsTextSize(20);
+                mRenderer.setLabelsTextSize(25);
                 mRenderer.setYLabelsPadding(20);
-                mRenderer.setLegendTextSize(25);
-                mRenderer.setMargins(new int[]{30,35,50,40});
+                mRenderer.setLegendTextSize(30);
+                mRenderer.setMargins(new int[]{30,45,60,40});
                 mRenderer.setXLabels(0);
                 mRenderer.setAxesColor(Color.rgb(0, 0, 0));
                 mRenderer.setXLabelsColor(Color.rgb(0, 0, 0));

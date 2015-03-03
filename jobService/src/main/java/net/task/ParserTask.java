@@ -175,7 +175,7 @@ public class ParserTask {
 				job.setCategories(jp.getCategories());
 				job.setCounties(jp.getCounties());
 				
-				// ovo se radi samo u slučaju da je kategorija posla = IT
+				// traženje tehnologija - ovo se radi samo u slučaju da je kategorija posla = IT
 				if (job.getCategories() != null) {
 					Iterator<Category> itr = job.getCategories().iterator();
 					while(itr.hasNext()) {

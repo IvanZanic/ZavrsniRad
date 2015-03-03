@@ -171,7 +171,7 @@
   </repositories>	
 	
 	<build>
-		<finalName>CounterWebApp</finalName>
+		<finalName>webService</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -186,7 +186,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<warName>CounterWebApp</warName>
+					<warName>webService</warName>
 				</configuration>
 			</plugin>
 			<plugin>

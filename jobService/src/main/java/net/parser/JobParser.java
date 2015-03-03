@@ -4,8 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.domain.Category;
 import net.domain.County;
@@ -161,19 +164,31 @@ public class JobParser {
 		else {
 			cond = cond.toLowerCase();
 		}
-		
+
 		Skill skill = null;
+		String skillName = "";
         for (SkillEnum se : SkillEnum.values()) {
-        	if (cond.contains(se.getName().toLowerCase())) {
-        		skill = new Skill();
-        		skill.setId(se.getId());
-        		techSkills.add(skill);
+        	skillName = se.getName().toLowerCase();
+        	if (cond.contains(skillName)) {
+        		Pattern pattern = Pattern.compile("([^a-zA-Z]|[ ]|^)"+skillName+"([^a-zA-Z]|[ ]|$|\\r\\n)");
+        		Matcher matcher = pattern.matcher(cond);
+        		
+        		if(matcher.find()) {
+            		skill = new Skill();
+            		skill.setId(se.getId());
+            		techSkills.add(skill);
+        		}
         	}
         }
-        
 		if(techSkills.size() == 0) {
 			return null;	
 		}
+		
+		Iterator<Skill> itr = techSkills.iterator();
+		while(itr.hasNext()) {
+			System.out.println(SkillEnum.getName(itr.next().getId()));
+		}		
+
 		return techSkills;
 	}	
 	
