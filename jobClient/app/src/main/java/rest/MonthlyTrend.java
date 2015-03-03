@@ -7,6 +7,8 @@ public class MonthlyTrend {
 
     private String month;
     private Long counter;
+    private Long id;
+
 
     public MonthlyTrend() {}
 
@@ -30,5 +32,13 @@ public class MonthlyTrend {
 
     public void setCounter(Long counter) {
         this.counter = counter;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

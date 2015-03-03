@@ -1,6 +1,5 @@
 package com.moje.jobclient.app;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -24,7 +23,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import rest.DataPercentages;
+import enums.SkillEnum;
+import graphics.ColorArray;
 import rest.MonthlyTrend;
 import services.rest.RestService;
 
@@ -43,29 +43,6 @@ public class MonthlySkillDiagramActivity extends ActionBarActivity {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_skill_trend, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     // radi se s async da ekran ne izgleda kao da se smrznuo
     private class HttpRequestTask extends AsyncTask<Integer, Void, Void> {
 
@@ -77,6 +54,8 @@ public class MonthlySkillDiagramActivity extends ActionBarActivity {
 
                 Intent itnt = getIntent();
                 String url = getResources().getString(R.string.jobServiceUrl) + "statistics/getTehnologyTrend?" + itnt.getStringExtra("searchParams");
+
+//                String url = "http://192.168.1.1:8080/webService/statistics/getTehnologyTrend?tehnologyIds=1,3,6,4,7,10,13&startDate=2014-08-03&endDate=2015-03-03";
 
                 RestService rs = new RestService();
 
@@ -109,43 +88,56 @@ public class MonthlySkillDiagramActivity extends ActionBarActivity {
 
                 chartLyt = (LinearLayout) findViewById(R.id.chart);
 
-                Intent itnt = getIntent();
-
-                XYSeries series = new XYSeries(itnt.getStringExtra("skill"));
+                XYSeries series = new XYSeries(SkillEnum.getName(monthlyTrendsList.get(0).getId().intValue()));
                 XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+                XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 
                 int i = 1;
+                int allCounter = 0;
+                Long prevId = 0L;
+                // raščlanjuje set dobiven sa servisa u setove potrebne za kreiranje pojedine linije na grafu
                 for (MonthlyTrend mt : monthlyTrendsList) {
+
+                    if (prevId != mt.getId()) {
+                        if (allCounter != 0) {
+                            dataset.addSeries(series);
+                            series = new XYSeries(SkillEnum.getName(mt.getId().intValue()));
+                            i=1;
+                        }
+                    }
                     series.add(i, mt.getCounter());
                     mRenderer.addXTextLabel(i, mt.getMonth());
                     i++;
+                    prevId = mt.getId();
+                    allCounter++;
+                    if(monthlyTrendsList.size() == allCounter) {
+                        dataset.addSeries(series);
+                    }
                 }
 
+                // pronalazi max count za tehnologije
                 MonthlyTrend maxSkillNum = Collections.max(monthlyTrendsList, new Comparator<MonthlyTrend>() {
                     public int compare(MonthlyTrend o1, MonthlyTrend o2) {
                         return Long.compare(o1.getCounter(), o2.getCounter());
                     }
                 });
 
-                // Now we create the renderer
-                XYSeriesRenderer renderer = new XYSeriesRenderer();
-                renderer.setLineWidth(2);
-                renderer.setColor(Color.RED);
-                // Include low and max value
-                renderer.setDisplayBoundingPoints(true);
-                // we add point markers
-                renderer.setPointStyle(PointStyle.CIRCLE);
-                renderer.setPointStrokeWidth(3);
+                // kreira sve grafičke linije za sve setove podataka
+                for (int count = 0; count < dataset.getSeriesCount(); count++) {
+                    // Now we create the renderer
+                    XYSeriesRenderer renderer = new XYSeriesRenderer();
+                    renderer.setLineWidth(2);
+                    renderer.setColor(ColorArray.getColorArray()[count]);
+                    // Include low and max value
+                    renderer.setDisplayBoundingPoints(true);
+                    // we add point markers
+                    renderer.setPointStyle(PointStyle.CIRCLE);
+                    renderer.setPointStrokeWidth(3);
+                    mRenderer.addSeriesRenderer(renderer);
+                }
 
-
-                // Now we add our series
-                XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-                dataset.addSeries(series);
-
-                mRenderer.addSeriesRenderer(renderer);
-                // We want to avoid black border
+                // izgled grafa
                 mRenderer.setMarginsColor(Color.argb(0x00, 0xff, 0x00, 0x00)); // transparent margins
-                // Disable Pan on two axis
                 mRenderer.setPanEnabled(false, false);
                 mRenderer.setYAxisMax(maxSkillNum.getCounter() + 5);
                 mRenderer.setYAxisMin(0);
@@ -153,12 +145,11 @@ public class MonthlySkillDiagramActivity extends ActionBarActivity {
                 mRenderer.setLabelsTextSize(20);
                 mRenderer.setYLabelsPadding(20);
                 mRenderer.setLegendTextSize(25);
+                mRenderer.setMargins(new int[]{30,35,50,40});
                 mRenderer.setXLabels(0);
                 mRenderer.setAxesColor(Color.rgb(0, 0, 0));
                 mRenderer.setXLabelsColor(Color.rgb(0, 0, 0));
                 mRenderer.setYLabelsColor(0, Color.rgb(0, 0, 0));
-
-                //            mRenderer.setMargins(new int[]{1,2,3});
 
                 GraphicalView chartView = ChartFactory.getLineChartView(MonthlySkillDiagramActivity.this, dataset, mRenderer);
 
@@ -166,5 +157,27 @@ public class MonthlySkillDiagramActivity extends ActionBarActivity {
 
 //            }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_skill_trend, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

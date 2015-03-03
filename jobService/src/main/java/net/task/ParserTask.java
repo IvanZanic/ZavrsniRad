@@ -181,8 +181,8 @@ public class ParserTask {
 					while(itr.hasNext()) {
 						Category cat = itr.next();
 						if (cat.getId() == 11) {
-							job.setTechSkills(jp.getTechSkills());	
-						}		
+							job.setTechSkills(jp.getTechSkills());
+						}
 					}
 				}
 				
@@ -194,10 +194,10 @@ public class ParserTask {
 					log.error("InterruptedException: " + e.toString());
 					e.printStackTrace();
 				}
-				count++;				
+				count++;
 			}
 		}
-		
 		System.out.println();
+		System.out.println("Gotovo!");
 	}
 }

@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import enums.SkillEnum;
+import graphics.MultiSpinner;
 
 
 public class MonthlySkillActivity extends ActionBarActivity {
@@ -37,7 +38,8 @@ public class MonthlySkillActivity extends ActionBarActivity {
     private Button mPickDate2;
 
     private Button prikaziButton;
-    private Spinner criteriaSpinner;
+    private MultiSpinner criteriaSpinner;
+    private String[] skillItems;
 
     static final int DATE_DIALOG_ID = 0;
     private int type = 0;
@@ -74,9 +76,8 @@ public class MonthlySkillActivity extends ActionBarActivity {
 
                 mDateDisplay1 = (TextView) findViewById(R.id.showMyDate1);
                 mDateDisplay2 = (TextView) findViewById(R.id.showMyDate2);
-                criteriaSpinner = (Spinner) findViewById(R.id.traziSpinner);
+                criteriaSpinner = (MultiSpinner) findViewById(R.id.traziSpinner);
 
-                String criteriaString = criteriaSpinner.getSelectedItem().toString();
                 String startDate = mDateDisplay1.getText().toString();
                 String endDate = mDateDisplay2.getText().toString();
 
@@ -101,15 +102,31 @@ public class MonthlySkillActivity extends ActionBarActivity {
                     return;
                 }
 
+                if (criteriaSpinner.getSelectedEntries().size() > 6) {
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(MonthlySkillActivity.this);
+                    dlgAlert.setMessage("Izaberite najviše 6 tehnologija");
+                    dlgAlert.setTitle("");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+                    return;
+                }
+
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 startDate = df.format(start);
                 endDate = df.format(end);
 
                 Intent jobIntent = new Intent(MonthlySkillActivity.this, MonthlySkillDiagramActivity.class);
 
-                String path = "tehnologyId=" + SkillEnum.getId(criteriaString) + "&startDate=" + startDate + "&endDate=" + endDate;
+                String skills = "";
+                for(String skill : criteriaSpinner.getSelectedEntries()) {
+                    skills += SkillEnum.getId(skill) + ",";
+                }
+
+                skills = skills.substring(0, skills.length() - 1);
+
+                String path = "tehnologyIds=" + skills + "&startDate=" + startDate + "&endDate=" + endDate;
                 jobIntent.putExtra("searchParams", path);
-                jobIntent.putExtra("skill", criteriaString);
                 startActivity(jobIntent);
 
 //                http://localhost:8080/webService/statistics/getTehnologyTrend?tehnologyId=10&startDate=2015-01-23&endDate=2015-02-07

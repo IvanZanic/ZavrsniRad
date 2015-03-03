@@ -55,13 +55,12 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/myDatePickerButton2" />
 
-    <Spinner
-        android:id="@+id/traziSpinner"
+    <graphics.MultiSpinner android:id="@+id/traziSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollbarSize="30dp"
-        android:layout_centerHorizontal="true"
         android:entries="@array/tehnologije_array"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/showMyDate2" />
 

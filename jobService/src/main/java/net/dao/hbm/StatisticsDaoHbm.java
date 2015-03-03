@@ -68,23 +68,24 @@ public class StatisticsDaoHbm implements StatisticsDao {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<MonthlyTrend> getTehnologyTrend(String startDate, String endDate, Integer tehnologyId) {
+	public List<MonthlyTrend> getTehnologyTrend(String startDate, String endDate, String tehnologyIdXML) {
 		
 		Session session = sessionFactory.getCurrentSession();	
 		
 		try {		
-		
-			return session.createSQLQuery("{ call skillTrend(:startDate, :endDate, :tehnologyId) }")
+
+			return session.createSQLQuery("{ call testing(:xml, :startDate, :endDate) }")
 					.addScalar("counter", Hibernate.LONG)
 					.addScalar("month", Hibernate.STRING)
+					.addScalar("id", Hibernate.LONG)
 					.setResultTransformer(
 	                Transformers.aliasToBean(MonthlyTrend.class)
-	            ).setParameter("startDate", startDate).setParameter("endDate", endDate).setParameter("tehnologyId", tehnologyId).list();	
+	            ).setParameter("startDate", startDate).setParameter("endDate", endDate).setParameter("xml", tehnologyIdXML).list();	
 			
 		} catch (Exception e) {
 			log.error("Exception. StatisticsDaoHbm => Method: getTehnologyTrend: "
 					+ e.toString() + ". Parameters: startDate = " + startDate
-					+ ", endDate = " + endDate + ", tehnologyId = " + tehnologyId);
+					+ ", endDate = " + endDate + ", tehnologyId = " + tehnologyIdXML);
 			e.printStackTrace();
 		}
 

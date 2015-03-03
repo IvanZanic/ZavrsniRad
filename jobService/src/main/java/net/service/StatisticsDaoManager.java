@@ -19,7 +19,7 @@ public class StatisticsDaoManager {
 		return statisticsDao.getPercentages(startDate, endDate, type);
 	}
 	
-	public List<MonthlyTrend> getTehnologyTrend(String startDate, String endDate, Integer tehnologyId) {
-		return statisticsDao.getTehnologyTrend(startDate, endDate, tehnologyId);
+	public List<MonthlyTrend> getTehnologyTrend(String startDate, String endDate, String tehnologyIdXML) {
+		return statisticsDao.getTehnologyTrend(startDate, endDate, tehnologyIdXML);
 	}	
 }
