@@ -9,7 +9,7 @@ pohranjuje, obrađuje i šalje na klijentski dio aplikacije koji je implementira
 
 Moguće je pretraživati poslove po odabranim kriterijima, pregledavati i sortirati listu poslova, pregledavati i 
 ocjenjivati pojedini posao, generirati statistiku za pojedine kriterije pretraživanja u određenom vremenskom razdoblju te
-statistiku za trend popularnosti pojedine tehnologije te usporedbu više tenologija kada je u pitanju kategorija posla "IT, telekomunikacije".
+statistiku za trend popularnosti pojedine tehnologije te usporedbu više tehnologija kada je u pitanju kategorija posla "IT, telekomunikacije".
 
 Problem koji je trenutno ostao neriješen je taj što isti korisnik može neograničeno mnogo puta ocijeniti isti oglas.
 
