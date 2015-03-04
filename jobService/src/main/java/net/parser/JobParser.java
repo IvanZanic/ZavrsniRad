@@ -170,13 +170,19 @@ public class JobParser {
         for (SkillEnum se : SkillEnum.values()) {
         	skillName = se.getName().toLowerCase();
         	if (cond.contains(skillName)) {
-        		Pattern pattern = Pattern.compile("([^a-zA-Z]|[ ]|^)"+skillName+"([^a-zA-Z]|[ ]|$|\\r\\n)");
-        		Matcher matcher = pattern.matcher(cond);
+        		if(skillName.equals("java") || skillName.equals("ember")) {
+	        		Pattern pattern = Pattern.compile("([^a-zA-Z]|[ ]|^)"+skillName+"([^a-zA-Z]|[ ]|$|\\r\\n)");
+	        		Matcher matcher = pattern.matcher(cond);
         		
-        		if(matcher.find()) {
+	        		if(matcher.find()) {
+	            		skill = new Skill();
+	            		skill.setId(se.getId());
+	            		techSkills.add(skill);
+	        		}
+        		} else {
             		skill = new Skill();
             		skill.setId(se.getId());
-            		techSkills.add(skill);
+            		techSkills.add(skill);        			
         		}
         	}
         }

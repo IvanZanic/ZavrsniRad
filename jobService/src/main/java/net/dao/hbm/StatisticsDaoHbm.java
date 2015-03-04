@@ -74,7 +74,7 @@ public class StatisticsDaoHbm implements StatisticsDao {
 		
 		try {		
 
-			return session.createSQLQuery("{ call testing(:xml, :startDate, :endDate) }")
+			return session.createSQLQuery("{ call skillTrend(:xml, :startDate, :endDate) }")
 					.addScalar("counter", Hibernate.LONG)
 					.addScalar("month", Hibernate.STRING)
 					.addScalar("id", Hibernate.LONG)
