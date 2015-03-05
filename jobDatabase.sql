@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 03, 2015 at 04:29 PM
+-- Generation Time: Mar 05, 2015 at 07:49 PM
 -- Server version: 5.5.41-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.6
 
@@ -122,22 +122,13 @@ group by skill_id) help on help.skill_id=skill.id
 order by percentage desc;
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `skillTrend`(IN `startDate` DATE, IN `endDate` DATE, IN `tehnologyId` INT UNSIGNED)
-    NO SQL
-BEGIN
-	SELECT DATE_FORMAT(job.publish_date,'%Y-%m') as month, count(*) as counter FROM job
-	join job_skill js on js.job_id = job.id
-	where js.skill_id=tehnologyId and date(publish_date) between startDate and endDate
-	group by DATE_FORMAT(job.publish_date,'%Y-%m')
-	order by DATE_FORMAT(job.publish_date,'%Y-%m');
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `testing`(IN `xml` TEXT, IN `startDate` DATE, IN `endDate` DATE)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `skillTrend`(IN `xml` TEXT, IN `startDate` DATE, IN `endDate` DATE, IN `countyId` INT)
     NO SQL
 BEGIN
     declare v_row_index int unsigned default 0;   
     declare v_row_count int unsigned; 
 	declare skillId int unsigned; 
+	declare dynWhereCountyId varchar(50) default '';
  
     -- calculate the number of row elements.
 	set v_row_count = ExtractValue(xml, 'count(//value)');
@@ -169,14 +160,26 @@ BEGIN
 				month from months;
     end while;
 
+	IF (countyId > 0) THEN
+		SET dynWhereCountyId = CONCAT(' and jc.county_id = ', countyId);
+	END IF;	
+
 	-- actual query for getting results
-	select im.id as id, im.month as month, coalesce(help.counter, 0) as counter from idsAndMonths im left join
-	(SELECT js.skill_id, DATE_FORMAT(j.publish_date,'%Y-%m') as month, count(*) as counter FROM job j
+	SET @resultSet = CONCAT('
+	select im.id as id, im.month as month, coalesce(help.counter, 0) as counter from idsAndMonths im 
+	left join
+	(SELECT js.skill_id, DATE_FORMAT(j.publish_date,"%Y-%m") as month, count(*) as counter FROM job j
 	join job_skill js on js.job_id = j.id
-	where date(j.publish_date) between startDate and endDate
-	group by js.skill_id, DATE_FORMAT(j.publish_date,'%Y-%m')
-	order by js.skill_id, DATE_FORMAT(j.publish_date,'%Y-%m')) help
-	on im.month = help.month and im.id = help.skill_id;
+    join job_county jc on j.id = jc.job_id
+	where date(j.publish_date) between "', startDate,'" and "', endDate, '"', dynWhereCountyId, ' 
+	group by js.skill_id, DATE_FORMAT(j.publish_date,"%Y-%m")
+	order by js.skill_id, DATE_FORMAT(j.publish_date,"%Y-%m")) help
+	on im.month = help.month and im.id = help.skill_id
+    ');
+
+    PREPARE stmt FROM @resultSet;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
 
 END$$
 
