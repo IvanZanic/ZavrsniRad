@@ -21,6 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import enums.CountyEnum;
 import enums.SkillEnum;
 import graphics.MultiSpinner;
 
@@ -39,6 +40,7 @@ public class MonthlySkillActivity extends ActionBarActivity {
 
     private Button prikaziButton;
     private MultiSpinner criteriaSpinner;
+    private Spinner countySpinner;
     private String[] skillItems;
 
     static final int DATE_DIALOG_ID = 0;
@@ -77,6 +79,7 @@ public class MonthlySkillActivity extends ActionBarActivity {
                 mDateDisplay1 = (TextView) findViewById(R.id.showMyDate1);
                 mDateDisplay2 = (TextView) findViewById(R.id.showMyDate2);
                 criteriaSpinner = (MultiSpinner) findViewById(R.id.traziSpinner);
+                countySpinner = (Spinner) findViewById(R.id.countySpinner);
 
                 String startDate = mDateDisplay1.getText().toString();
                 String endDate = mDateDisplay2.getText().toString();
@@ -125,7 +128,13 @@ public class MonthlySkillActivity extends ActionBarActivity {
 
                 skills = skills.substring(0, skills.length() - 1);
 
-                String path = "tehnologyIds=" + skills + "&startDate=" + startDate + "&endDate=" + endDate;
+                String countyString = countySpinner.getSelectedItem().toString();
+                Integer countyId = 0;
+                if (!countyString.equals("Izaberi županiju")) {
+                    countyId = CountyEnum.getId(countyString);
+                }
+
+                String path = "tehnologyIds=" + skills + "&countyId=" + countyId + "&startDate=" + startDate + "&endDate=" + endDate;
                 jobIntent.putExtra("searchParams", path);
                 startActivity(jobIntent);
 

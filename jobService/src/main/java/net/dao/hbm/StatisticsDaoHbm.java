@@ -18,44 +18,44 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class StatisticsDaoHbm implements StatisticsDao {
-	
+
 	/**
 	 * SessionFactory.
 	 */
 	@Autowired
-	private SessionFactory sessionFactory;	
-	
+	private SessionFactory sessionFactory;
+
 	private Logger log = Logger.getLogger(EmployerDaoHbm.class);
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<DataPercentages> getPercentages(String startDate, String endDate, String type) {
-		
+	public List<DataPercentages> getPercentages(String startDate,
+			String endDate, String type) {
+
 		Session session = sessionFactory.getCurrentSession();
 
 		try {
-			
+
 			String procedure = "";
-			if(type.equals("category")) {
+			if (type.equals("category")) {
 				procedure = "{ call categoryPercentage(:startDate, :endDate) }";
-			}
-			else if(type.equals("county")) {
+			} else if (type.equals("county")) {
 				procedure = "{ call countyPercentage(:startDate, :endDate) }";
-			}
-			else if(type.equals("jobtype")) {
+			} else if (type.equals("jobtype")) {
 				procedure = "{ call jobtypePercentage(:startDate, :endDate) }";
-			}
-			else if(type.equals("qualification")) {
+			} else if (type.equals("qualification")) {
 				procedure = "{ call qualificationPercentage(:startDate, :endDate) }";
-			}
-			else if(type.equals("skill")) {
+			} else if (type.equals("skill")) {
 				procedure = "{ call skillPercentage(:startDate, :endDate) }";
-			}			
-			
-			return session.createSQLQuery(procedure).setResultTransformer(
-                    Transformers.aliasToBean(DataPercentages.class)
-                ).setParameter("startDate", startDate).setParameter("endDate", endDate).list();
-			
+			}
+
+			return session
+					.createSQLQuery(procedure)
+					.setResultTransformer(
+							Transformers.aliasToBean(DataPercentages.class))
+					.setParameter("startDate", startDate)
+					.setParameter("endDate", endDate).list();
+
 		} catch (Exception e) {
 			log.error("Exception. StatisticsDaoHbm => Method: getPercentages: "
 					+ e.toString() + ". Parameters: startDate = " + startDate
@@ -65,34 +65,41 @@ public class StatisticsDaoHbm implements StatisticsDao {
 
 		return null;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<MonthlyTrend> getTehnologyTrend(String startDate, String endDate, String tehnologyIdXML) {
-		
-		Session session = sessionFactory.getCurrentSession();	
-		
-		try {		
+	public List<MonthlyTrend> getTehnologyTrend(String startDate,
+			String endDate, String tehnologyIdXML, Integer countyId) {
 
-			return session.createSQLQuery("{ call skillTrend(:xml, :startDate, :endDate) }")
+		Session session = sessionFactory.getCurrentSession();
+
+		try {
+
+			return session
+					.createSQLQuery(
+							"{ call skillTrend(:xml, :startDate, :endDate, :countyId) }")
 					.addScalar("counter", Hibernate.LONG)
 					.addScalar("month", Hibernate.STRING)
 					.addScalar("id", Hibernate.LONG)
 					.setResultTransformer(
-	                Transformers.aliasToBean(MonthlyTrend.class)
-	            ).setParameter("startDate", startDate).setParameter("endDate", endDate).setParameter("xml", tehnologyIdXML).list();	
-			
+							Transformers.aliasToBean(MonthlyTrend.class))
+					.setParameter("startDate", startDate)
+					.setParameter("endDate", endDate)
+					.setParameter("xml", tehnologyIdXML)
+					.setParameter("countyId", countyId).list();
+
 		} catch (Exception e) {
 			log.error("Exception. StatisticsDaoHbm => Method: getTehnologyTrend: "
-					+ e.toString() + ". Parameters: startDate = " + startDate
-					+ ", endDate = " + endDate + ", tehnologyId = " + tehnologyIdXML);
+					+ e.toString()
+					+ ". Parameters: startDate = "
+					+ startDate
+					+ ", endDate = "
+					+ endDate
+					+ ", tehnologyIds = "
+					+ tehnologyIdXML + ", countyId = " + countyId);
 			e.printStackTrace();
 		}
 
-		return null;			
+		return null;
 	}
 }
-
-
-
-

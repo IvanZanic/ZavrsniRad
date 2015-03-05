@@ -52,10 +52,11 @@ public class StatisticsController {
 	@RequestMapping(method = RequestMethod.GET, value = "/getTehnologyTrend")
 	public @ResponseBody List<MonthlyTrend> getTehnologyTrend(@RequestParam(required=false) String startDate,
 			@RequestParam String endDate, 
-			@RequestParam Integer[] tehnologyIds) 
+			@RequestParam Integer[] tehnologyIds,
+			@RequestParam Integer countyId) 
 			{
 		
-//		http://localhost:8080/webService/statistics/getTehnologyTrend?tehnologyId=10&startDate=2015-01-23&endDate=2015-02-07		
+//		http://localhost:8080/webService/statistics/getTehnologyTrend?tehnologyId=10&startDate=2015-01-23&endDate=2015-02-07
 		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder;
@@ -82,7 +83,8 @@ public class StatisticsController {
 			transformer.transform(new DOMSource(doc), new StreamResult(writer));
 			tehnologyIdXML = writer.getBuffer().toString().replaceAll("\n|\r", "");
 			
-			return statisticsDaoManager.getTehnologyTrend(startDate, endDate, tehnologyIdXML);
+			List<MonthlyTrend> helpList = statisticsDaoManager.getTehnologyTrend(startDate, endDate, tehnologyIdXML, countyId);
+			return helpList;
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

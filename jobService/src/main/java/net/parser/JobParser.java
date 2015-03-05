@@ -189,11 +189,6 @@ public class JobParser {
 		if(techSkills.size() == 0) {
 			return null;	
 		}
-		
-		Iterator<Skill> itr = techSkills.iterator();
-		while(itr.hasNext()) {
-			System.out.println(SkillEnum.getName(itr.next().getId()));
-		}		
 
 		return techSkills;
 	}	

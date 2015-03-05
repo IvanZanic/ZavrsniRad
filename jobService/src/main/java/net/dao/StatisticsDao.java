@@ -9,5 +9,5 @@ public interface StatisticsDao {
 
 	public List<DataPercentages> getPercentages(String startDate, String endDate, String type);
 	
-	public List<MonthlyTrend> getTehnologyTrend(String startDate, String endDate, String tehnologyIdXML);
+	public List<MonthlyTrend> getTehnologyTrend(String startDate, String endDate, String tehnologyIdXML, Integer countyId);
 }

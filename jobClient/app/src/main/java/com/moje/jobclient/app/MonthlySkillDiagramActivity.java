@@ -88,7 +88,7 @@ public class MonthlySkillDiagramActivity extends ActionBarActivity {
 
                 chartLyt = (LinearLayout) findViewById(R.id.chart);
 
-                XYSeries series = new XYSeries(SkillEnum.getName(monthlyTrendsList.get(0).getId().intValue()));
+                XYSeries series = new XYSeries(SkillEnum.getName(monthlyTrendsList.get(0).getId().intValue()) + "     ");
                 XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
                 XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 
@@ -101,7 +101,7 @@ public class MonthlySkillDiagramActivity extends ActionBarActivity {
                     if (prevId != mt.getId()) {
                         if (allCounter != 0) {
                             dataset.addSeries(series);
-                            series = new XYSeries(SkillEnum.getName(mt.getId().intValue()));
+                            series = new XYSeries(SkillEnum.getName(mt.getId().intValue()) + "     ");
                             i=1;
                         }
                     }
@@ -126,13 +126,13 @@ public class MonthlySkillDiagramActivity extends ActionBarActivity {
                 for (int count = 0; count < dataset.getSeriesCount(); count++) {
                     // Now we create the renderer
                     XYSeriesRenderer renderer = new XYSeriesRenderer();
-                    renderer.setLineWidth(2);
+                    renderer.setLineWidth(3);
                     renderer.setColor(ColorArray.getColorArray()[count]);
                     // Include low and max value
                     renderer.setDisplayBoundingPoints(true);
                     // we add point markers
                     renderer.setPointStyle(PointStyle.CIRCLE);
-                    renderer.setPointStrokeWidth(3);
+                    renderer.setPointStrokeWidth(4);
                     mRenderer.addSeriesRenderer(renderer);
                 }
 
