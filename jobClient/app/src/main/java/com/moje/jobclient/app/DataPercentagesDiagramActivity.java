@@ -122,11 +122,11 @@ public class DataPercentagesDiagramActivity extends ActionBarActivity {
                 series.add(0, 0);
                 mRenderer.addXTextLabel(0, "0");
 
-                Collections.sort(dataPercentagesList, new Comparator<DataPercentages>() {
-                    public int compare(DataPercentages o1, DataPercentages o2) {
-                        return o1.getId().compareTo(o2.getId());
-                    }
-                });
+//                Collections.sort(dataPercentagesList, new Comparator<DataPercentages>() {
+//                    public int compare(DataPercentages o1, DataPercentages o2) {
+//                        return o1.getId().compareTo(o2.getId());
+//                    }
+//                });
 
                 for (DataPercentages dp : dataPercentagesList) {
                     series.add(dp.getId(), dp.getPercentage().doubleValue());
@@ -134,8 +134,9 @@ public class DataPercentagesDiagramActivity extends ActionBarActivity {
                 }
 
                 String[] strLegendList = new String[dataPercentagesList.size()];
-
                 String title = "";
+
+                // kreiranje legende dijagrama
                 if (itnt.getStringExtra("criteria").equals("category")) {
                     title = "Kategorije posla";
                     for (int i = 0; i < dataPercentagesList.size(); i++)
@@ -158,11 +159,11 @@ public class DataPercentagesDiagramActivity extends ActionBarActivity {
                         strLegendList[i] = dataPercentagesList.get(i).getId() + " - " + SkillEnum.getName(dataPercentagesList.get(i).getId().intValue());
                 }
 
-                DataPercentages dataPerMax = Collections.max(dataPercentagesList, new Comparator<DataPercentages>() {
-                    public int compare(DataPercentages o1, DataPercentages o2) {
-                        return o1.getPercentage().compareTo(o2.getPercentage());
-                    }
-                });
+//                DataPercentages dataPerMax = Collections.max(dataPercentagesList, new Comparator<DataPercentages>() {
+//                    public int compare(DataPercentages o1, DataPercentages o2) {
+//                        return o1.getPercentage().compareTo(o2.getPercentage());
+//                    }
+//                });
 
 
                 XYSeriesRenderer renderer = new XYSeriesRenderer();
@@ -180,8 +181,10 @@ public class DataPercentagesDiagramActivity extends ActionBarActivity {
 
                 mRenderer.addSeriesRenderer(renderer);
                 mRenderer.setMarginsColor(Color.argb(0x00, 0xff, 0x00, 0x00));
+                mRenderer.setMargins(new int[]{30,30,30,30});
                 mRenderer.setPanEnabled(false, false);
-                mRenderer.setYAxisMax(dataPerMax.getPercentage().longValue() + 2);
+//                mRenderer.setYAxisMax(dataPerMax.getPercentage().longValue() + 2);
+                mRenderer.setYAxisMax(series.getMaxY() + 3);
                 mRenderer.setYAxisMin(0);
                 mRenderer.setShowGrid(true);
                 mRenderer.setLabelsTextSize(20);
@@ -206,6 +209,7 @@ public class DataPercentagesDiagramActivity extends ActionBarActivity {
         }
     }
 
+    // adapter za gridView u kojem se prikazuju legende dijagrama
     public class TextViewAdapter extends BaseAdapter {
         private Context context;
         private final String[] textViewValues;
@@ -224,17 +228,13 @@ public class DataPercentagesDiagramActivity extends ActionBarActivity {
 
             if (convertView == null) {
 
-                gridView = new View(context);
-
-                // get layout from mobile.xml
                 gridView = inflater.inflate(R.layout.legend_text, null);
 
-                // set value into textview
                 TextView textView = (TextView) gridView
                         .findViewById(R.id.legendText);
                 textView.setText(textViewValues[position]);
             } else {
-                gridView = (View) convertView;
+                gridView = convertView;
             }
 
             return gridView;

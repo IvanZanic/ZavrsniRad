@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 05, 2015 at 07:49 PM
+-- Generation Time: Mar 06, 2015 at 12:28 PM
 -- Server version: 5.5.41-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.6
 
@@ -24,40 +24,6 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryPercentage`(IN `startDate` DATE, IN `endDate` DATE)
-begin
-set @sumCat = (select count(category_id) from job_category
-              join job on job_category.job_id=job.id
-              where date(publish_date) between startDate and endDate);
-select category.id, round(coalesce(percentage,0),2) percentage from category
-left join (
-SELECT category_id, (count(*) / @sumCat)*100 percentage FROM job_category
-join job on job_category.job_id=job.id
-where date(publish_date) between startDate and endDate
-group by category_id) help on help.category_id=category.id 
-order by percentage desc;
-end$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `countyPercentage`(IN `startDate` DATE, IN `endDate` DATE)
-    NO SQL
-begin
-set @sumCat = (select count(county_id) from job_county
-              join job on job_county.job_id=job.id
-              where date(publish_date) between startDate and endDate);
-select county.id, round(coalesce(percentage,0),2) percentage from county
-left join (
-SELECT county_id, (count(*) / @sumCat)*100 percentage FROM job_county
-join job on job_county.job_id=job.id
-where date(publish_date) between startDate and endDate
-group by county_id) help on help.county_id=county.id 
-order by percentage desc;
-end$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getJobById`(IN `id_num` INT)
-BEGIN
-	select * from job where id=id_num;
-END$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getNumOfJobsByCategoryByMonthsInYear`(IN `id_category` INT(5))
 begin
 SELECT DATE_FORMAT(job.publish_date,'%Y-%m') month, count(job.id) jobSum FROM `job`
@@ -65,6 +31,40 @@ join (select * from job_category where category_id=id_category) catHelp on catHe
 where date(job.publish_date) like '2014%'
 group by DATE_FORMAT(job.publish_date,'%Y-%m')
 order by DATE_FORMAT(job.publish_date,'%Y-%m');
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPercentages`(IN `startDate` DATE, IN `endDate` DATE, IN `tableName` VARCHAR(20))
+    NO SQL
+begin
+SET @sumCat = 0;
+SET @sumQuery = CONCAT('
+SET @sumCat = (select count(',tableName,'_id) from job_',tableName,'
+join job on job_',tableName,'.job_id=job.id
+where date(publish_date) between ? and ?)');
+
+PREPARE stmt FROM @sumQuery;
+SET @startDate = startDate;
+SET @endDate = endDate;
+EXECUTE stmt USING @startDate,@endDate;
+DEALLOCATE PREPARE stmt;
+
+
+SET @resultSet = CONCAT('
+select ',tableName,'.id, round(coalesce(percentage,0),2) percentage from ',tableName,'
+left join (
+SELECT ',tableName,'_id, (count(*) / @sumCat)*100 percentage FROM job_',tableName,'
+join job on job_',tableName,'.job_id=job.id
+where date(publish_date) between ? and ?
+group by ',tableName,'_id) help on help.',tableName,'_id=',tableName,'.id 
+order by ',tableName,'.id'
+);
+                        
+    PREPARE stmt FROM @resultSet;
+	SET @startDate = startDate;
+	SET @endDate = endDate;
+	EXECUTE stmt USING @startDate,@endDate;
+	DEALLOCATE PREPARE stmt;
+
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `it_zagreb_danas`()
@@ -76,51 +76,6 @@ BEGIN
 	join county on county.id=job_county.county_id
 	WHERE job_category.category_id=11 AND job_county.county_id=2 AND Date(`publish_date`) like CURDATE();
 END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `jobtypePercentage`(IN `startDate` DATE, IN `endDate` DATE)
-    NO SQL
-begin
-set @sumCat = (select count(jobtype_id) from job_jobtype
-              join job on job_jobtype.job_id=job.id
-              where date(publish_date) between startDate and endDate);
-select jobtype.id, round(coalesce(percentage,0),2) percentage from jobtype
-left join (
-SELECT jobtype_id, (count(*) / @sumCat)*100 percentage FROM job_jobtype
-join job on job_jobtype.job_id=job.id
-where date(publish_date) between startDate and endDate
-group by jobtype_id) help on help.jobtype_id=jobtype.id 
-order by percentage desc;
-end$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `qualificationPercentage`(IN `startDate` DATE, IN `endDate` DATE)
-    NO SQL
-begin
-set @sumCat = (select count(qualification_id) from job_qualification
-              join job on job_qualification.job_id=job.id
-              where date(publish_date) between startDate and endDate);
-select qualification.id, round(coalesce(percentage,0),2) percentage from qualification
-left join (
-SELECT qualification_id, (count(*) / @sumCat)*100 percentage FROM job_qualification
-join job on job_qualification.job_id=job.id
-where date(publish_date) between startDate and endDate
-group by qualification_id) help on help.qualification_id=qualification.id 
-order by percentage desc;
-end$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `skillPercentage`(IN `startDate` DATE, IN `endDate` DATE)
-    NO SQL
-begin
-set @sumCat = (select count(skill_id) from job_skill
-              join job on job_skill.job_id=job.id
-              where date(publish_date) between startDate and endDate);
-select skill.id, round(coalesce(percentage,0),2) percentage from skill
-left join (
-SELECT skill_id, (count(*) / @sumCat)*100 percentage FROM job_skill
-join job on job_skill.job_id=job.id
-where date(publish_date) between startDate and endDate
-group by skill_id) help on help.skill_id=skill.id 
-order by percentage desc;
-end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `skillTrend`(IN `xml` TEXT, IN `startDate` DATE, IN `endDate` DATE, IN `countyId` INT)
     NO SQL

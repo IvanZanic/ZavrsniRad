@@ -33,29 +33,19 @@ public class StatisticsDaoHbm implements StatisticsDao {
 			String endDate, String type) {
 
 		Session session = sessionFactory.getCurrentSession();
-
 		try {
+			
+			String procedure = "{ call getPercentages(:startDate, :endDate, :type) }";
 
-			String procedure = "";
-			if (type.equals("category")) {
-				procedure = "{ call categoryPercentage(:startDate, :endDate) }";
-			} else if (type.equals("county")) {
-				procedure = "{ call countyPercentage(:startDate, :endDate) }";
-			} else if (type.equals("jobtype")) {
-				procedure = "{ call jobtypePercentage(:startDate, :endDate) }";
-			} else if (type.equals("qualification")) {
-				procedure = "{ call qualificationPercentage(:startDate, :endDate) }";
-			} else if (type.equals("skill")) {
-				procedure = "{ call skillPercentage(:startDate, :endDate) }";
-			}
-
+			
+			
 			return session
 					.createSQLQuery(procedure)
 					.setResultTransformer(
 							Transformers.aliasToBean(DataPercentages.class))
 					.setParameter("startDate", startDate)
-					.setParameter("endDate", endDate).list();
-
+					.setParameter("endDate", endDate)
+					.setParameter("type", type).list();
 		} catch (Exception e) {
 			log.error("Exception. StatisticsDaoHbm => Method: getPercentages: "
 					+ e.toString() + ". Parameters: startDate = " + startDate
