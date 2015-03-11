@@ -5,7 +5,7 @@ Naziv aplikacije: Android aplikacija za obradu ponude poslova
 Link na video aplikacije: http://youtu.be/Y_qAaOZFTy4 
 
 Aplikacija je podijeljena na servisni i klijentski dio. Web servis je implementiran u Java Spring programskom okviru. Servis prikuplja podatke s jednog od internet servisa za oglašavanje poslova te ih 
-pohranjuje, obrađuje i šalje na klijentski dio aplikacije koji je implementiran na android platformi.
+pohranjuje, obrađuje i šalje na klijentski dio aplikacije koji je implementiran na Android platformi.
 
 Moguće je pretraživati poslove po odabranim kriterijima, pregledavati i sortirati listu poslova, pregledavati i 
 ocjenjivati pojedini posao, generirati statistiku za pojedine kriterije pretraživanja u određenom vremenskom razdoblju te
