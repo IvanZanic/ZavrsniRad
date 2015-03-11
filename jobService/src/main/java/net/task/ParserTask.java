@@ -35,7 +35,7 @@ public class ParserTask {
 	@Autowired
 	JobParser jp;
 
-//	@Scheduled(fixedRate= 1000 * 60 * 60 * 24)
+	@Scheduled(fixedRate= 1000 * 60 * 60 * 24)
 	public void getJobsTask() {
 		
 		List<Job> allJobs = new ArrayList<Job>();	
