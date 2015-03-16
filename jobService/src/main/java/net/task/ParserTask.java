@@ -48,7 +48,7 @@ public class ParserTask {
 			String urlParameters = null;
 			
 			try {
-				urlParameters = "?published=" + URLEncoder.encode("1", "UTF-8") +
+				urlParameters = "?published=" + URLEncoder.encode("2", "UTF-8") +
 						"&page=" + URLEncoder.encode(String.valueOf(pageCount), "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				log.error("UnsupportedEncodingException: " + e.toString() + ". Parameters: " + urlParameters);
